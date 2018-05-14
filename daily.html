@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+
+
+	<script type="text/javascript">
+		
+		//1. 把数字转化为中文金额读法
+		function change(money) {
+			let cnNum = ['零','壹','贰','仨','肆','伍','陆','柒','捌','玖'],
+				numUnit = ['','拾','佰','仟','万']
+				maxNum = 99999,	//最大处理数字
+				num = 0,
+				numStr = '';
+
+			//预处理
+			if(money === '' || money > maxNum) {
+				return '';
+			}
+			num = money.toString();
+			if(num > 0) {
+				let count = 0,
+					len = num.length;
+				for(let i = 0; i < len; i++) {
+					let n = num.substr(i,1),
+						p = len - i - 1,
+						m = p % 5;
+					if(n === '0') {
+						count++;
+					} else {
+						if(count > 0) {
+							numStr += cnNum[0];
+						}
+						count = 0;
+						numStr += cnNum[n] + numUnit[m];
+					}
+				}
+			}
+			return numStr;
+		}
+
+		console.log(change(100))
+	</script>
+</body>
+</html>
